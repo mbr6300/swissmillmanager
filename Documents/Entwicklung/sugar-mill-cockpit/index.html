@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugar Mill Management Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .map-container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        svg {
+            width: 100%;
+            height: auto;
+        }
+        
+        path {
+            transition: fill 0.3s ease;
+            cursor: pointer;
+        }
+        
+        path:hover {
+            fill: #4a7c50;
+        }
+        
+        .selected {
+            fill: #3c6540 !important;
+            stroke-width: 1.5;
+        }
+        
+        .info-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 600px;
+            min-height: 100px;
+        }
+        
+        h1 {
+            color: #3c6540;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>Sugar Mill Management Dashboard</h1>
+            <div class="user-info">
+                <span id="current-date"></span>
+                <span id="user-name">Factory Manager</span>
+            </div>
+        </header>
+        
+        <div class="dashboard-grid">
+            <!-- Workforce Management Section -->
+            <div class="dashboard-card workforce">
+                <h2>Workforce Management</h2>
+                <div class="card-content">
+                    <div class="shift-planning">
+                        <h3>Shift Planning</h3>
+                        <div class="shift-calendar">
+                            <!-- Calendar view will be rendered here -->
+                        </div>
+                        <button class="action-button">Optimize Shifts</button>
+                    </div>
+                    <div class="worker-stats">
+                        <h3>Workers on Duty: <span id="workers-count">42</span></h3>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 85%;"></div>
+                        </div>
+                        <p>85% of optimal workforce</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Logistics Management Section -->
+            <div class="dashboard-card logistics">
+                <h2>Logistics & Resources</h2>
+                <div class="card-content">
+                    <div class="resource-allocation">
+                        <h3>Resource Allocation</h3>
+                        <ul class="resource-list">
+                            <li>
+                                <span class="resource-name">Trucks</span>
+                                <span class="resource-value">18/24 available</span>
+                                <div class="mini-progress">
+                                    <div style="width: 75%"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="resource-name">Railway Capacity</span>
+                                <span class="resource-value">90% utilized</span>
+                                <div class="mini-progress">
+                                    <div style="width: 90%"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="resource-name">Manpower</span>
+                                <span class="resource-value">85% allocated</span>
+                                <div class="mini-progress">
+                                    <div style="width: 85%"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="logistics-actions">
+                        <button class="action-button" onclick="document.getElementById('resource-optimization-modal').style.display='block'">Optimize Resources</button>
+                        <button class="action-button">Schedule Transport</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Supplier Management Section -->
+            <div class="dashboard-card suppliers">
+                <h2>Supplier Management</h2>
+                <div class="card-content">
+                    <div class="supplier-timing">
+                        <h3>Upcoming Deliveries</h3>
+                        <table class="supplier-table">
+                            <thead>
+                                <tr>
+                                    <th>Supplier</th>
+                                    <th>Material</th>
+                                    <th>ETA</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>AgriCane Ltd.</td>
+                                    <td>Raw Sugarcane</td>
+                                    <td>Today, 14:30</td>
+                                    <td class="status on-time">On Time</td>
+                                </tr>
+                                <tr>
+                                    <td>ChemSupply Co.</td>
+                                    <td>Processing Chemicals</td>
+                                    <td>Tomorrow, 09:00</td>
+                                    <td class="status on-time">On Time</td>
+                                </tr>
+                                <tr>
+                                    <td>PackMasters Inc.</td>
+                                    <td>Packaging Materials</td>
+                                    <td>Today, 16:00</td>
+                                    <td class="status delayed">Delayed</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="supplier-actions">
+                        <button class="action-button">Contact Suppliers</button>
+                        <button class="action-button">View All Deliveries</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Analytics Section -->
+            <div class="dashboard-card data-analytics">
+                <h2>Data Analytics</h2>
+                <div class="card-content">
+                    <div class="data-filters">
+                        <select id="data-source-filter">
+                            <option value="all">All Data Sources</option>
+                            <option value="production">Production Data</option>
+                            <option value="quality">Quality Metrics</option>
+                            <option value="efficiency">Efficiency Metrics</option>
+                        </select>
+                        <button class="filter-button">Filter</button>
+                    </div>
+                    <div class="data-visualization">
+                        <canvas id="analytics-chart"></canvas>
+                    </div>
+                    <div class="data-insights">
+                        <h3>Key Insights</h3>
+                        <ul>
+                            <li>Production efficiency increased by 12% this week</li>
+                            <li>Quality control issues reduced by 8%</li>
+                            <li>Optimal harvest time identified: 6-8 AM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Harvest Optimization Section -->
+            <div class="dashboard-section" id="harvest-optimization">
+                <div class="section-header">
+                    <h2>Harvest Optimization</h2>
+                    <!-- Any existing header content -->
+                </div>
+                
+                <div class="section-content">
+                    <!-- Add the map container here -->
+                    <div class="map-container">
+                        <!-- SVG map will be inserted here by JavaScript -->
+                    </div>
+                    
+                    <!-- Add the Draw Custom Region button here -->
+                    <button class="action-button custom-region-btn" style="background-color: #2980b9; color: white; margin-top: 10px;">
+                        Draw Custom Region
+                    </button>
+                    
+                    <div class="info-box">
+                        <h2>Canton Information</h2>
+                        <p>Click on a canton to see information about it.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Core Data Section -->
+            <div class="dashboard-card core-data">
+                <h2>Core Factory Data</h2>
+                <div class="card-content">
+                    <div class="data-grid">
+                        <div class="data-item">
+                            <h3>Employees</h3>
+                            <div class="data-value">124</div>
+                        </div>
+                        <div class="data-item">
+                            <h3>Storage Capacity</h3>
+                            <div class="data-value">78% <span class="trend positive">↑3%</span></div>
+                        </div>
+                        <div class="data-item">
+                            <h3>Railway Usage</h3>
+                            <div class="data-value">90% <span class="trend negative">↓5%</span></div>
+                        </div>
+                        <div class="data-item">
+                            <h3>Truck Fleet</h3>
+                            <div class="data-value">24 <span class="status">(18 active)</span></div>
+                        </div>
+                        <div class="data-item">
+                            <h3>Production Volume</h3>
+                            <div class="data-value">142 tons <span class="trend positive">↑12%</span></div>
+                        </div>
+                        <div class="data-item">
+                            <h3>Field Parcels</h3>
+                            <div class="data-value">28 active</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Add this right before the closing </body> tag -->
+    <div id="resource-optimization-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Resource Optimization</h2>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="optimization-tabs">
+            <button class="tab-button active" data-tab="trucks">Trucks</button>
+            <button class="tab-button" data-tab="railway">Railway</button>
+            <button class="tab-button" data-tab="manpower">Manpower</button>
+          </div>
+          
+          <div class="tab-content active" id="trucks-tab">
+            <h3>Truck Allocation Recommendations</h3>
+            <div class="allocation-summary">
+              <p>Based on current harvest predictions, we recommend the following truck allocation:</p>
+            </div>
+            <table class="allocation-table">
+              <thead>
+                <tr>
+                  <th>Region</th>
+                  <th>Trucks Needed</th>
+                  <th>Priority</th>
+                  <th>Schedule</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Thurgau (TG)</td>
+                  <td>8</td>
+                  <td class="priority high">High</td>
+                  <td>06:00 - 14:00</td>
+                </tr>
+                <tr>
+                  <td>Aargau (AG)</td>
+                  <td>6</td>
+                  <td class="priority medium">Medium</td>
+                  <td>08:00 - 16:00</td>
+                </tr>
+                <tr>
+                  <td>Bern (BE)</td>
+                  <td>5</td>
+                  <td class="priority medium">Medium</td>
+                  <td>10:00 - 18:00</td>
+                </tr>
+                <tr>
+                  <td>Vaud (VD)</td>
+                  <td>3</td>
+                  <td class="priority low">Low</td>
+                  <td>12:00 - 20:00</td>
+                </tr>
+                <tr>
+                  <td>Fribourg (FR)</td>
+                  <td>2</td>
+                  <td class="priority low">Low</td>
+                  <td>14:00 - 22:00</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="optimization-notes">
+              <h4>Notes:</h4>
+              <ul>
+                <li>Prioritize Thurgau due to highest sugar content (19.1%) and proximity to factory</li>
+                <li>Stagger truck schedules to optimize mill processing capacity</li>
+                <li>Keep 2 trucks in reserve for emergency transportation needs</li>
+                <li>Consider weather forecasts when finalizing daily schedules</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="tab-content" id="railway-tab">
+            <h3>Railway Capacity Optimization</h3>
+            <div class="allocation-summary">
+              <p>Railway transport should be allocated according to the following schedule:</p>
+            </div>
+            <table class="allocation-table">
+              <thead>
+                <tr>
+                  <th>Route</th>
+                  <th>Capacity</th>
+                  <th>Priority</th>
+                  <th>Schedule</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Frauenfeld - Aarberg</td>
+                  <td>40%</td>
+                  <td class="priority high">High</td>
+                  <td>Daily, 08:00 - 12:00</td>
+                </tr>
+                <tr>
+                  <td>Bern - Aarberg</td>
+                  <td>30%</td>
+                  <td class="priority medium">Medium</td>
+                  <td>Daily, 14:00 - 18:00</td>
+                </tr>
+                <tr>
+                  <td>Vaud - Aarberg</td>
+                  <td>20%</td>
+                  <td class="priority medium">Medium</td>
+                  <td>Mon, Wed, Fri, 10:00 - 14:00</td>
+                </tr>
+                <tr>
+                  <td>Reserve Capacity</td>
+                  <td>10%</td>
+                  <td class="priority low">Low</td>
+                  <td>As needed</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="optimization-notes">
+              <h4>Notes:</h4>
+              <ul>
+                <li>Coordinate with SBB for any schedule changes at least 48 hours in advance</li>
+                <li>Monitor weather conditions that may affect railway operations</li>
+                <li>Maintain 10% reserve capacity for unexpected production increases</li>
+                <li>Consider increasing Frauenfeld - Aarberg capacity by 5% during peak harvest</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="tab-content" id="manpower-tab">
+            <h3>Manpower Allocation Strategy</h3>
+            <div class="allocation-summary">
+              <p>Based on harvest predictions and processing requirements, allocate workforce as follows:</p>
+            </div>
+            <table class="allocation-table">
+              <thead>
+                <tr>
+                  <th>Department</th>
+                  <th>Workers</th>
+                  <th>Shift Pattern</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Field Operations</td>
+                  <td>45</td>
+                  <td>6:00-14:00, 14:00-22:00</td>
+                  <td>Focus on Thurgau and Aargau regions</td>
+                </tr>
+                <tr>
+                  <td>Transportation</td>
+                  <td>28</td>
+                  <td>6:00-14:00, 14:00-22:00</td>
+                  <td>18 truck drivers, 10 logistics coordinators</td>
+                </tr>
+                <tr>
+                  <td>Processing</td>
+                  <td>35</td>
+                  <td>24/7 rotation</td>
+                  <td>Increase staff by 15% during peak periods</td>
+                </tr>
+                <tr>
+                  <td>Quality Control</td>
+                  <td>12</td>
+                  <td>8:00-16:00, 16:00-24:00</td>
+                  <td>Additional focus on high sugar content batches</td>
+                </tr>
+                <tr>
+                  <td>Maintenance</td>
+                  <td>8</td>
+                  <td>8:00-16:00, on-call</td>
+                  <td>Preventative maintenance priority</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="optimization-notes">
+              <h4>Recommendations:</h4>
+              <ul>
+                <li>Increase field operations staff by 10% during the first two weeks of harvest</li>
+                <li>Cross-train 15% of workforce to handle multiple roles as needed</li>
+                <li>Schedule maintenance during predicted low-volume periods</li>
+                <li>Maintain a pool of 10 on-call temporary workers for peak periods</li>
+                <li>Adjust processing staff based on daily sugar content readings</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="optimization-actions">
+            <button class="action-button" id="apply-optimization">Apply Recommendations</button>
+            <button class="action-button secondary" id="export-plan">Export Plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add this somewhere visible in your HTML for testing -->
+    <button onclick="window.showResourceModal()" style="position: fixed; top: 10px; right: 10px; z-index: 9999; background-color: red; color: white; padding: 10px;">
+        TEST MODAL
+    </button>
+</body>
+</html> 

@@ -1,0 +1,969 @@
+:root {
+  --primary-color: #3a7e4f;
+  --secondary-color: #f9c846;
+  --tertiary-color: #e6e6b8;
+  --dark-color: #2c3e50;
+  --light-color: #f5f5f5;
+  --danger-color: #e74c3c;
+  --success-color: #2ecc71;
+  --warning-color: #f39c12;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+.dashboard {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f2f5;
+  color: var(--dark-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard * {
+  box-sizing: border-box;
+}
+
+.dashboard header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dashboard header h1 {
+  color: var(--primary-color);
+  font-size: 28px;
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 14px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.dashboard-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.dashboard-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.dashboard-card h2 {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 15px;
+  font-size: 18px;
+  margin: 0;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+/* Specific card sizes */
+.workforce, .logistics, .suppliers {
+  grid-column: span 1;
+}
+
+.data-analytics, .harvest {
+  grid-column: span 3;
+}
+
+.core-data {
+  grid-column: span 3;
+}
+
+/* Workforce Management Styles */
+.shift-planning {
+  margin-bottom: 20px;
+}
+
+.shift-calendar {
+  height: 150px;
+  background-color: var(--light-color);
+  border-radius: 4px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #888;
+}
+
+.worker-stats {
+  background-color: var(--tertiary-color);
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: var(--success-color);
+}
+
+/* Logistics Styles */
+.resource-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resource-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.resource-name {
+  width: 40%;
+  font-weight: 500;
+}
+
+.resource-value {
+  width: 30%;
+  text-align: right;
+}
+
+.mini-progress {
+  width: 100%;
+  height: 6px;
+  background-color: #ddd;
+  border-radius: 3px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.mini-progress div {
+  height: 100%;
+  background-color: var(--primary-color);
+}
+
+/* Supplier Management Styles */
+.supplier-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+}
+
+.supplier-table th, .supplier-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.supplier-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.on-time {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.delayed {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Data Analytics Styles */
+.data-filters {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.data-filters select {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.filter-button {
+  padding: 8px 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.data-visualization {
+  height: 200px;
+  margin-bottom: 15px;
+}
+
+.data-insights ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.data-insights li {
+  margin-bottom: 5px;
+}
+
+/* Harvest Optimization Styles */
+.harvest-metrics {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+.metric-box {
+  flex: 1;
+  background-color: var(--tertiary-color);
+  padding: 15px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.metric-box h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: var(--dark-color);
+  text-align: center;
+  width: 100%;
+}
+
+.metric-box .metric-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.metric-box .metric-trend {
+  font-size: 14px;
+  color: var(--success-color);
+  text-align: center;
+  width: 100%;
+  margin-left: 0;
+  padding: 0;
+}
+
+.metric-box .trend {
+  display: inline-block;
+  margin-left: 5px;
+  text-align: center;
+}
+
+.metric-description {
+  font-size: 12px;
+  color: #666;
+}
+
+.map-container {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  min-height: 400px;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+}
+
+path {
+  transition: fill 0.3s ease;
+  cursor: pointer;
+}
+
+path:hover {
+  fill: #4a7c50;
+}
+
+.selected {
+  fill: #3c6540 !important;
+  stroke-width: 1.5;
+}
+
+.info-box {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 600px;
+  min-height: 100px;
+}
+
+.custom-region-btn {
+  background-color: #2980b9 !important;
+  color: white !important;
+  border: none;
+}
+
+.custom-region-btn:hover {
+  background-color: #3498db !important;
+}
+
+/* Core Data Styles */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.data-item {
+  background-color: var(--tertiary-color);
+  padding: 15px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.data-value {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 10px 0;
+  color: var(--primary-color);
+}
+
+.trend {
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.positive {
+  color: var(--success-color);
+}
+
+.negative {
+  color: var(--danger-color);
+}
+
+/* Button Styles */
+.action-button {
+  padding: 10px 15px;
+  background-color: var(--secondary-color);
+  color: var(--dark-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  margin-top: 10px;
+}
+
+.action-button:hover {
+  background-color: #e0b63e;
+}
+
+.logistics-actions, .supplier-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .harvest {
+    grid-column: span 2;
+  }
+  
+  .workforce, .logistics, .suppliers {
+    grid-column: span 1;
+  }
+  
+  .data-analytics, .core-data {
+    grid-column: span 2;
+  }
+  
+  .map-container {
+    height: 450px;
+  }
+  
+  .overlay-content {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .harvest, .workforce, .logistics, .suppliers, .data-analytics, .core-data {
+    grid-column: span 1;
+  }
+  
+  .harvest-metrics {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .data-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .map-container {
+    height: 400px;
+  }
+  
+  .overlay-content {
+    max-height: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Enhanced Switzerland Map Styles */
+.switzerland-map svg text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  pointer-events: none;
+}
+
+.region {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  stroke-width: 2;
+}
+
+.region:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+  stroke-width: 3;
+  stroke: #333;
+}
+
+/* Add tooltip for regions */
+.region-tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 100;
+  display: none;
+}
+
+/* Updated yield color classes */
+.very-high-yield { 
+  fill: #27ae60; /* Dark green */
+}
+
+.high-yield { 
+  fill: #2ecc71; /* Green */
+}
+
+.medium-yield { 
+  fill: #f39c12; /* Yellow/Orange */
+}
+
+.low-yield { 
+  fill: #e67e22; /* Orange */
+}
+
+.very-low-yield { 
+  fill: #e74c3c; /* Red */
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.legend-color {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  border-radius: 2px;
+}
+
+.legend-text {
+  font-size: 10px;
+}
+
+.map-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Region Details Overlay */
+.region-details-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 350px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: none;
+  z-index: 100;
+  max-height: calc(100% - 20px);
+  transition: all 0.3s ease;
+}
+
+.region-details-overlay.active {
+  display: block;
+}
+
+.overlay-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overlay-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.close-overlay {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.overlay-content {
+  padding: 15px;
+  overflow-y: auto;
+  max-height: 450px;
+}
+
+.yield-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.yield-label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.yield-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.region-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.stat-item {
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark-color);
+}
+
+.recommendations {
+  margin-top: 15px;
+  text-align: left;
+}
+
+.recommendations h4 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: var(--dark-color);
+  text-align: left;
+}
+
+.recommendations ul {
+  padding-left: 20px;
+  margin: 0;
+  text-align: left;
+}
+
+.recommendations li {
+  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+}
+
+#detailed-analysis-btn {
+  width: 100%;
+  margin-top: 15px;
+}
+
+/* Historical comparison styling */
+.historical-comparison {
+  display: block;
+  font-size: 11px;
+  font-weight: normal;
+  margin-top: 3px;
+}
+
+.historical-comparison.positive {
+  color: var(--success-color);
+}
+
+.historical-comparison.negative {
+  color: var(--danger-color);
+}
+
+/* Make the overlay responsive */
+@media (max-width: 768px) {
+  .region-details-overlay {
+    width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .region-details-overlay {
+    width: 280px;
+  }
+}
+
+/* Add full-width option for stat items */
+.stat-item.full-width {
+  grid-column: span 2;
+}
+
+/* Market Insights Section - Updated with responsive typography and left alignment */
+.market-insights {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  text-align: left;
+}
+
+.market-insights h3 {
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: clamp(16px, 2vw, 20px);
+  text-align: left;
+}
+
+.market-insights h4 {
+  color: var(--dark-color);
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: clamp(14px, 1.8vw, 18px);
+  text-align: left;
+}
+
+.market-insights p {
+  font-size: clamp(13px, 1.6vw, 16px);
+  line-height: 1.5;
+  text-align: left;
+}
+
+.insights-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.insights-summary, .insights-implications {
+  background-color: white;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: left;
+}
+
+.key-metrics {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 0 0;
+  text-align: left;
+}
+
+.key-metrics li {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.key-metrics li:last-child {
+  border-bottom: none;
+}
+
+.metric-name {
+  width: 120px;
+  font-weight: 600;
+  color: var(--dark-color);
+  font-size: clamp(12px, 1.5vw, 14px);
+}
+
+.metric-value {
+  width: 100px;
+  font-weight: 700;
+  font-size: clamp(12px, 1.5vw, 14px);
+}
+
+.metric-trend {
+  margin-left: 10px;
+  font-size: clamp(10px, 1.2vw, 12px);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.metric-trend.positive {
+  background-color: rgba(46, 204, 113, 0.15);
+  color: var(--success-color);
+}
+
+.metric-trend.negative {
+  background-color: rgba(231, 76, 60, 0.15);
+  color: var(--danger-color);
+}
+
+.recommendations-list {
+  padding-left: 20px;
+  margin: 0;
+  text-align: left;
+}
+
+.recommendations-list li {
+  margin-bottom: 12px;
+  line-height: 1.4;
+  font-size: clamp(12px, 1.5vw, 14px);
+  text-align: left;
+}
+
+.insights-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  background-color: white;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.chart-container h4 {
+  text-align: left;
+}
+
+.insights-chart {
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+
+.chart-note {
+  font-size: clamp(10px, 1.2vw, 12px);
+  color: #666;
+  margin: 5px 0 0 0;
+  text-align: left;
+}
+
+.insights-footer {
+  background-color: white;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: left;
+}
+
+.insights-footer p {
+  margin-top: 0;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-size: clamp(12px, 1.5vw, 14px);
+  text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .insights-container, .insights-charts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .metric-name {
+    width: 100px;
+  }
+  
+  .metric-value {
+    width: 80px;
+  }
+  
+  .metric-trend {
+    margin-left: 5px;
+    padding: 1px 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .market-insights {
+    padding: 15px;
+  }
+  
+  .key-metrics li {
+    flex-direction: column;
+  }
+  
+  .metric-name, .metric-value {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  
+  .metric-trend {
+    margin-left: 0;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+}
+
+.analysis-btn {
+  background-color: #2980b9 !important;
+  color: white !important;
+  border: none;
+}
+
+.analysis-btn:hover {
+  background-color: #3498db !important;
+}
+
+/* Add these styles to your SugarMillDashboard.css file */
+.summary-box {
+  background-color: #f0f7e6;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+}
+
+.summary-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #3a7e4f;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary-subtitle {
+  font-size: 12px;
+  color: #666;
+}
+
+.trend {
+  font-size: 14px;
+  margin-left: 8px;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.trend.positive {
+  color: #2ecc71;
+}
+
+.trend.negative {
+  color: #e74c3c;
+}
+
+.harvest-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+} 
